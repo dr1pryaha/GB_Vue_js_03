@@ -3,7 +3,11 @@
     <img alt="Vue logo" src="./assets/logo.png" />
     <AddButton @showPopup="popupToggle"></AddButton>
     <List :list="costsList"></List>
-    <Form v-if="isPopupActive"></Form>
+    <Form
+      :addCost="costsList"
+      @closePopup="popupToggle"
+      v-if="isPopupActive"
+    ></Form>
   </div>
 </template>
 
@@ -41,6 +45,7 @@ export default {
 
   created() {
     this.costsList = this.fetchData();
+    console.log(this.costsList);
   },
 };
 </script>
