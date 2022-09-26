@@ -67,11 +67,7 @@ export default {
       required: false,
       default: 5,
     },
-    totalPages: {
-      type: Number,
-      required: true,
-    },
-    total: {
+    pageCount: {
       type: Number,
       required: true,
     },
@@ -96,7 +92,7 @@ export default {
 
   computed: {
     startPage() {
-      if (this.currentPage === 1 || this.currentPage === this.totalPages) {
+      if (this.currentPage === 1 || this.currentPage === this.pageCount) {
         return 1;
       }
 
@@ -105,7 +101,7 @@ export default {
     endPage() {
       return Math.min(
         this.startPage + this.maxVisibleButtons - 1,
-        this.totalPages
+        this.pageCount
       );
     },
     pages() {
@@ -124,24 +120,24 @@ export default {
       return this.currentPage === 1;
     },
     isInLastPage() {
-      return this.currentPage === this.totalPages;
+      return this.currentPage === this.pageCount;
     },
   },
   methods: {
     onClickFirstPage() {
-      this.$emit("pagechanged", 1);
+      this.$emit("onPageChange", 1);
     },
     onClickPreviousPage() {
-      this.$emit("pagechanged", this.currentPage - 1);
+      this.$emit("onPageChange", this.currentPage - 1);
     },
     onClickPage(page) {
-      this.$emit("pagechanged", page);
+      this.$emit("onPageChange", page);
     },
     onClickNextPage() {
-      this.$emit("pagechanged", this.currentPage + 1);
+      this.$emit("onPageChange", this.currentPage + 1);
     },
     onClickLastPage() {
-      this.$emit("pagechanged", this.totalPages);
+      this.$emit("onPageChange", this.pageCount);
     },
     isPageActive(page) {
       return this.currentPage === page;

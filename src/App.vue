@@ -10,12 +10,11 @@
       v-if="isPopupActive"
     ></Form>
     <Pagination
-      :costs-list="costsList"
-      :total-pages="pageCount"
-      :total="pageCount"
-      :per-page="perPage"
-      :current-page="currentPage"
-      @pagechanged="onPageChange"
+      :costsList="costsList"
+      :pageCount="pageCount"
+      :perPage="perPage"
+      :currentPage="currentPage"
+      @onPageChange="onPageChange"
     ></Pagination>
   </div>
 </template>
