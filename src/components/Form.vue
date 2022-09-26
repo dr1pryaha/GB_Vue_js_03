@@ -2,16 +2,16 @@
   <div class="form">
     <div @click="closeBtnClick" class="closeModal"></div>
     <input
-      v-model="description"
-      :class="{ error: !this.description }"
+      v-model="category"
+      :class="{ error: !this.category }"
       class="form-input description"
       type="text"
       placeholder="Payment Description"
     />
 
     <input
-      v-model="amount"
-      :class="{ error: !this.amount }"
+      v-model="value"
+      :class="{ error: !this.value }"
       class="form-input amount"
       type="text"
       placeholder="Payment Amount"
@@ -33,13 +33,13 @@
 export default {
   name: "Form",
   props: {
-    addCost: Array,
+    costsList: Array,
   },
 
   data() {
     return {
-      description: "",
-      amount: "",
+      category: "",
+      value: "",
       date: "",
       error: false,
     };
@@ -49,21 +49,28 @@ export default {
     closeBtnClick() {
       this.$emit("closePopup");
     },
-    // addError() {
-    //   this.error = !this.error;
-    // },
+
+    getId() {
+      return (
+        this.costsList.map(({ id }) => id).sort((a, b) => a - b)[
+          this.costsList.length - 1
+        ] + 1
+      );
+    },
+
     submitData() {
-      // if (this.description === "" || this.amount === "" || this.date === "") {
-      //   this.addError();
-      // }
-      this.$emit("addCost");
-      console.log(this.addCost.category);
-      console.log(this.description);
-      console.log(this.amount);
-      console.log(this.date);
-      // this.description = "";
-      // this.amount = "";
-      // this.date = "";
+      if (this.category && this.date && this.value) {
+        this.$emit("costsList");
+        this.costsList.push({
+          id: this.getId(),
+          date: this.date,
+          category: this.category,
+          value: this.value,
+        });
+        this.category = "";
+        this.value = "";
+        this.date = "";
+      }
     },
   },
 };
